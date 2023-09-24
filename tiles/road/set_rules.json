@@ -1,0 +1,27 @@
+{
+  "blank": [["up", "blank"],
+            ["right", "blank"],
+            ["down", "blank"],
+            ["left", "blank"]
+  ],
+  "up": [["right", "down", "left"],
+          ["left", "down", "up"],
+          ["blank"],
+          ["down", "right", "up"]
+  ],
+  "right": [["right", "left", "down"],
+            ["up", "left", "down"],
+            ["up", "left", "right"],
+            ["blank"]
+  ],
+  "down": [["blank"],
+          ["down", "left", "up"],
+          ["left", "up", "right"],
+          ["down", "up", "right"]
+  ],
+  "left": [["left", "down", "right"],
+          ["blank"],
+          ["left", "up", "right"],
+          ["up", "down", "right"]
+  ]
+}

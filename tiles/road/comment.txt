@@ -1,0 +1,2 @@
+possible issue:
+For example, take the "up" tile. For the third direction (down) only " blank" tiles are available in the rules, but can be "down", which can lead to the creation of circular roads, or not?
