@@ -1,12 +1,16 @@
 import tkinter as tk
-from typing import Callable
+
+img_resize_threshold = 10
 
 
 class AfterResizingEvent:
-    def __init__(self, widget, new_w, new_h, new_padx, new_pady):
-        self.widget = widget
+    def __init__(self, widget, new_w, new_h, prev_w, prev_h, new_padx, new_pady):
+        from . import AspectFrame
+        self.asp_frm: AspectFrame = widget
         self.new_w = new_w
         self.new_h = new_h
+        self.prev_w = prev_w
+        self.prev_h = prev_h
         self.new_padx = new_padx
         self.new_pady = new_pady
 
@@ -46,13 +50,15 @@ def resize_handler(self, e: tk.Event) -> None:
         if isinstance(w, AspectFrame):
             w.grid(padx=new_padx, pady=new_pady)
 
-    self.after_resizing_handler(AfterResizingEvent(self, new_w, new_h, new_padx, new_pady))
+    img_resize_handler(AfterResizingEvent(self, new_w, new_h, e.width, e.height, new_padx, new_pady))
 
 
-def bind_after_resizing(self, func: Callable[[AfterResizingEvent], None]):
-    self.after_resizing_pool.append(func)
+def img_resize_handler(e: AfterResizingEvent):
+    from . import AspectFrame
+    asp_frm = e.asp_frm
+    new_cell_size = min(e.new_w, e.new_h)
+    prev_cell_size = asp_frm.wfc_cell.img_size * asp_frm.wfc_cell.max_side
 
-
-def after_resizing_handler(self, e: AfterResizingEvent):
-    for f in self.after_resizing_pool:
-        f(e)
+    if abs(new_cell_size - prev_cell_size) > img_resize_threshold:
+        for other_frm in [w for w in asp_frm.master.grid_slaves() if isinstance(w, AspectFrame)]:
+            other_frm.update_image_size()

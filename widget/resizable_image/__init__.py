@@ -4,8 +4,6 @@ from PIL import ImageTk
 from PIL.Image import Image
 from PIL.ImageTk import PhotoImage
 
-from .resize_handler import frm_resize_handler
-
 
 class ResizableImage(tk.Label):
     resize_threshold = 5
