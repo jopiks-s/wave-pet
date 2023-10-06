@@ -5,14 +5,11 @@ from PIL.Image import Image
 from PIL.ImageTk import PhotoImage
 
 
-class ResizableImage(tk.Label):
-    resize_threshold = 5
-
+class ImageLabel(tk.Label):
     def __init__(self, src_image: Image, img: Image, img_tk: PhotoImage, *args, **kwargs):
-        super().__init__(borderwidth=0, *args, **kwargs)
+        super().__init__(*args, borderwidth=0, **kwargs)
 
         self.src_image: Image = src_image
         self.resized_img: Image = img
         self.resized_img_tk: ImageTk = img_tk
-
         self.grid_propagate(False)
