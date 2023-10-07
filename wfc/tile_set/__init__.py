@@ -2,25 +2,23 @@ import json
 import math
 import os
 
-from PIL import ImageTk, Image
+from PIL import Image
 
-
-class Tile:
-    def __init__(self, name: str, rules: list[list[str]], img: Image.Image):
-        self.name = name
-        self.rules = rules
-        self.image = img
+from .tile import Tile
 
 
 class TileSet:
+    from ._entropy import propagate_collapse
+    from ._tile_pack import __len__, items, values, resize_pack, get_coords
+
     def __init__(self, path: str, map_frm, map_size: int, cell_size: int):
         from wfc import CellFrame
         from map import Map
-        map_frm: Map
 
         rules_path = f'{path}/set_rules.json'
         assert os.path.exists(rules_path), f'Path to rules file: {rules_path}'
 
+        self.map_frm: Map = map_frm
         self.board: list[list[CellFrame]] = []
         self.tile_pack = {}
         with open(rules_path, 'r') as f:
@@ -33,38 +31,19 @@ class TileSet:
                 img = Image.open(f'{path}/{file_name}')
                 self.tile_pack[name] = Tile(name, set_rules[name], img)
 
-        self.board_dim = math.ceil(math.sqrt(len(self.tile_pack)))
-        self.grid_size = (math.ceil(len(self) / self.board_dim),
-                          self.board_dim)
+        self.cell_dim = math.ceil(math.sqrt(len(self.tile_pack)))
+        self.grid_size = (math.ceil(len(self) / self.cell_dim),
+                          self.cell_dim)
 
         self._create_map(map_frm, map_size, cell_size)
 
     def _create_map(self, map_frm, map_size, cell_size):
         from wfc import CellFrame
 
+        scaled_imgs = self.resize_pack(int(cell_size / self.cell_dim))
         for i in range(map_size):
             self.board.append([])
             for j in range(map_size):
-                cell_frm = CellFrame(self, cell_size, master=map_frm)
+                cell_frm = CellFrame(self, cell_size, scaled_imgs, master=map_frm)
                 cell_frm.grid(row=i, column=j, sticky='nsew')
                 self.board[i].append(cell_frm)
-
-    def __len__(self):
-        return len(self.tile_pack)
-
-    def items(self):
-        return self.tile_pack.items()
-
-    def values(self):
-        return self.tile_pack.values()
-
-    def resize_pack(self, size: int) -> dict[str, tuple[Image.Image, ImageTk.PhotoImage]]:
-        scaled_imgs = {}
-        for name, tile in self.items():
-            resized_img = tile.image.resize((size, size), Image.LANCZOS)
-            scaled_imgs[name] = (resized_img, ImageTk.PhotoImage(resized_img))
-
-        return scaled_imgs
-
-    def propagate_collapse(self, row, column):
-        ...

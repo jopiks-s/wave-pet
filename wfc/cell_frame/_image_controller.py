@@ -5,6 +5,15 @@ from PIL import Image
 from . import ImageLabel
 
 
+def select_image(self, img_lbl: ImageLabel):
+    from . import CellFrame
+    self: CellFrame
+
+    nl = list(self.mapped_imgs)
+    nl.remove(img_lbl)
+    self.delete_images(nl)
+
+
 def delete_images(self, img_lbls: list[ImageLabel]):
     from . import CellFrame
     self: CellFrame
@@ -15,10 +24,10 @@ def delete_images(self, img_lbls: list[ImageLabel]):
         self.mapped_imgs.pop(img_lbl)
         img_lbl.grid_forget()
 
-    self.reorganize_layout()
+    self._reorganize_layout()
 
 
-def reorganize_layout(self):
+def _reorganize_layout(self):
     from . import CellFrame
     self: CellFrame
 
@@ -27,10 +36,10 @@ def reorganize_layout(self):
         row, col = i // self.max_side, i % self.max_side
         img_lbl.grid(row=row, column=col)
 
-    self.update_image_size()
+    self._update_image_size()
 
 
-def update_image_size(self):
+def _update_image_size(self):
     from . import CellFrame
     self: CellFrame
 
