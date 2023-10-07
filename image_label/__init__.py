@@ -10,6 +10,17 @@ class ImageLabel(tk.Label):
         super().__init__(*args, borderwidth=0, **kwargs)
 
         self.src_image: Image = src_image
-        self.resized_img: Image = img
+        self._resized_img: Image = img
         self.resized_img_tk: ImageTk = img_tk
         self.grid_propagate(False)
+
+    @property
+    def resized_img(self):
+        return self._resized_img
+
+    @resized_img.setter
+    def resized_img(self, value):
+        self._resized_img = value
+        self.resized_img_tk = ImageTk.PhotoImage(value)
+
+        self['image'] = self.resized_img_tk
