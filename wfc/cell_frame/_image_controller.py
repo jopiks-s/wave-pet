@@ -14,9 +14,12 @@ def select_image(self, img_lbl: ImageLabel):
     self.delete_images(nl)
 
 
-def delete_images(self, img_lbls: list[ImageLabel]):
+def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel):
     from . import CellFrame
     self: CellFrame
+
+    if not isinstance(img_lbls, list):
+        img_lbls = [img_lbls]
 
     for img_lbl in img_lbls:
         assert img_lbl in self.mapped_imgs, print(img_lbl)

@@ -8,11 +8,11 @@ from wfc import ImageLabel, TileSet
 
 
 class CellFrame(tk.Frame):
-    from ._actions import collapse_cell, reduce_entropy
+    from ._actions import collapse_cell, apply_new_rules, get_available_neighbors
     from ._image_controller import select_image, delete_images, _reorganize_layout, _update_image_size
 
     def __init__(self, tile_set, size: int,
-                 scaled_imgs:  dict[str, tuple[Image, PhotoImage]] | None = None, *args, **kwargs):
+                 scaled_imgs: dict[str, tuple[Image, PhotoImage]] | None = None, *args, **kwargs):
         from wfc.tile_set import Tile
 
         super().__init__(*args, borderwidth=0, bg='black', **kwargs)
