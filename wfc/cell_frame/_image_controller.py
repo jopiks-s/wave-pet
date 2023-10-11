@@ -26,7 +26,10 @@ def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel) -> None:
         self.mapped_imgs.pop(img_lbl)
         img_lbl.grid_forget()
 
-    self._reorganize_layout()
+    if not len(self.mapped_imgs):
+        self.finish_cell()
+    else:
+        self._reorganize_layout()
 
 
 def _reorganize_layout(self):
@@ -34,26 +37,11 @@ def _reorganize_layout(self):
     self: CellFrame
 
     self.max_side = ceil(sqrt(len(self.mapped_imgs)))
-    if self.max_side == 0:
-        self._fill_empty_cell()
-        return
-
     for i, img_lbl in enumerate(self.mapped_imgs):
         row, col = i // self.max_side, i % self.max_side
         img_lbl.grid(row=row, column=col)
 
     self._update_image_size()
-
-
-def _fill_empty_cell(self):
-    from . import CellFrame
-    self: CellFrame
-
-    self['cursor'] = 'X_cursor'
-    self.rowconfigure(0, weight=1)
-    self.columnconfigure(0, weight=1)
-    puff_lbl = tk.Label(self, text='Puffed!', fg='white', bg='black')
-    puff_lbl.grid(row=0, column=0)
 
 
 def _update_image_size(self):
@@ -70,3 +58,14 @@ def _update_image_size(self):
             img_lbl.resized_img = img_lbl.src_image.resize((new_size, new_size), Image.LANCZOS)
 
         self.img_size = new_size
+
+
+def _fill_empty_cell(self):
+    from . import CellFrame
+    self: CellFrame
+
+    self['cursor'] = 'X_cursor'
+    self.rowconfigure(0, weight=1)
+    self.columnconfigure(0, weight=1)
+    puff_lbl = tk.Label(self, text='Puffed!', fg='white', bg='black')
+    puff_lbl.grid(row=0, column=0)

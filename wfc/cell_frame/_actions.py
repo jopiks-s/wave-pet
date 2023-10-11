@@ -29,13 +29,24 @@ def apply_new_rules(self, rules: list[str]) -> bool:
     return len(to_delete) > 0
 
 
+def finish_cell(self):
+    from . import CellFrame
+    self: CellFrame
+
+    if len(self.mapped_imgs):
+        self.delete_images(self.mapped_imgs.keys())
+        return
+
+    self.finish = True
+    self._fill_empty_cell()
+
+
 def get_available_neighbors(self) -> tile.AvailableNeighbors | None:
     from . import CellFrame
     from wfc import tile, Tile
     self: CellFrame
 
-    if not len(self.mapped_imgs):
-        return
+    assert len(self.mapped_imgs), 'Access cell without tiles!'
 
     valid_adjacent = tile.AvailableNeighbors()
 

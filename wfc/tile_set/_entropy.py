@@ -10,9 +10,10 @@ def propagate_collapse(self, row, column):
 
     while not q.empty():
         curr_cell: CellFrame = q.get()
-        cell_neighbors = curr_cell.get_available_neighbors()
-        if cell_neighbors is None:
+        if curr_cell.finish:
             continue
+
+        cell_neighbors = curr_cell.get_available_neighbors()
 
         for direction in Tile.Directions:
             next_row, next_col = self.get_coords(curr_cell.row, curr_cell.column, direction)
