@@ -2,7 +2,7 @@ from math import ceil, sqrt
 
 from PIL import Image
 
-from . import ImageLabel
+from . import ImageLabel, tk
 
 
 def select_image(self, img_lbl: ImageLabel):
@@ -14,13 +14,12 @@ def select_image(self, img_lbl: ImageLabel):
     self.delete_images(nl)
 
 
-def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel):
+def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel) -> None:
     from . import CellFrame
     self: CellFrame
 
     if not isinstance(img_lbls, list):
         img_lbls = [img_lbls]
-
     for img_lbl in img_lbls:
         assert img_lbl in self.mapped_imgs, print(img_lbl)
 
@@ -35,6 +34,10 @@ def _reorganize_layout(self):
     self: CellFrame
 
     self.max_side = ceil(sqrt(len(self.mapped_imgs)))
+    if self.max_side == 0:
+        self._fill_empty_cell()
+        return
+
     for i, img_lbl in enumerate(self.mapped_imgs):
         row, col = i // self.max_side, i % self.max_side
         img_lbl.grid(row=row, column=col)
@@ -42,9 +45,23 @@ def _reorganize_layout(self):
     self._update_image_size()
 
 
+def _fill_empty_cell(self):
+    from . import CellFrame
+    self: CellFrame
+
+    self['cursor'] = 'X_cursor'
+    self.rowconfigure(0, weight=1)
+    self.columnconfigure(0, weight=1)
+    puff_lbl = tk.Label(self, text='Puffed!', fg='white', bg='black')
+    puff_lbl.grid(row=0, column=0)
+
+
 def _update_image_size(self):
     from . import CellFrame
     self: CellFrame
+
+    if self.max_side == 0:
+        return
 
     cell_size = min(self.winfo_width(), self.winfo_height())
     new_size = int(cell_size / self.max_side)

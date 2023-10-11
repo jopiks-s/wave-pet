@@ -24,13 +24,13 @@ class AvailableNeighbors:
     DOWN: list[str] = field(default_factory=lambda: [])
     LEFT: list[str] = field(default_factory=lambda: [])
 
-    def __getitem__(self, item: Tile.Directions):
+    def __getitem__(self, item: Tile.Directions) -> list[str]:
         assert isinstance(item, Tile.Directions), \
             'Only the enumeration keys from "Tile.Directions" are available for accessing attributes'
 
         return self.__getattribute__(item.name)
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key, value) -> None:
         assert isinstance(key, Tile.Directions), \
             'Only the enumeration keys from "Tile.Directions" are available for accessing attributes'
 

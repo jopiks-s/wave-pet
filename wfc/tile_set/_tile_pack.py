@@ -22,7 +22,7 @@ def resize_pack(self, size: int) -> dict[str, tuple[Image.Image, ImageTk.PhotoIm
     return scaled_imgs
 
 
-def get_coords(self, row: int, column: int, direction) -> tuple[int, int] | None:
+def get_coords(self, row: int, column: int, direction) -> tuple[int, int] | tuple[None, None]:
     from . import TileSet, Tile
     self: TileSet
     direction: Tile.Directions
@@ -40,4 +40,4 @@ def get_coords(self, row: int, column: int, direction) -> tuple[int, int] | None
     if 0 <= row < self.map_frm.map_size and 0 <= column < self.map_frm.map_size:
         return row, column
 
-    return None
+    return None, None
