@@ -8,13 +8,15 @@ from . import ImageLabel, tk
 def handle_image_click(self, e: tk.Event):
     from . import CellFrame
     self: CellFrame
+    assert isinstance(e.widget, ImageLabel)
+
     # [TODO] add a handler when clicked and cell is already collapsed
     if len(self.mapped_imgs) == 1:
         assert self.state == CellFrame.State.Collapsed
         return
 
     self.collapse_cell(e.widget)
-    self.tile_set.propagate_collapse(self.row, self.column)
+    self.tile_set.propagate_collapse(self)
 
 
 def select_image(self, img_lbl: ImageLabel):
@@ -33,7 +35,7 @@ def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel) -> None:
     if not isinstance(img_lbls, list):
         img_lbls = [img_lbls]
     for img_lbl in img_lbls:
-        assert img_lbl in self.mapped_imgs, print(img_lbl)
+        assert img_lbl in self.mapped_imgs, f'{img_lbl=}'
 
         self.mapped_imgs.pop(img_lbl)
         img_lbl.grid_forget()

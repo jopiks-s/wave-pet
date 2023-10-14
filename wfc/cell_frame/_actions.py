@@ -14,11 +14,11 @@ def collapse_cell(self, img_lbl=None):
 
     if self.state != CellFrame.State.Stable:
         return
-    assert len(self.mapped_imgs) > 1
+    assert len(self.mapped_imgs) > 1, f'tiles left: {len(self.mapped_imgs)}'
 
-    self.State = CellFrame.State.Collapsed
+    self.state = CellFrame.State.Collapsed
     if img_lbl is None:
-        img_lbl = choice(self.mapped_imgs)
+        img_lbl = choice(list(self.mapped_imgs))
 
     self.select_image(img_lbl)
 
@@ -30,15 +30,22 @@ def apply_new_rules(self, rules: list[str]) -> bool:
     self: CellFrame
 
     to_delete = []
+    mapped_copy = self.mapped_imgs.copy()
     for img_lbl, cell_tile in self.mapped_imgs.items():
         if cell_tile.name not in rules:
+            del mapped_copy[img_lbl]
             to_delete.append(img_lbl)
+    changed = len(to_delete) > 0
 
-    if len(to_delete) == len(self.mapped_imgs):
-        self.state = CellFrame.State.Broken
+    if changed:
+        if len(mapped_copy) == 0:
+            self.state = CellFrame.State.Broken
+        elif len(mapped_copy) == 1:
+            self.collapse_cell(next(iter(mapped_copy)))
+        else:
+            self.delete_images(to_delete)
 
-    self.delete_images(to_delete)
-    return len(to_delete) > 0
+    return changed
 
 
 def get_available_neighbors(self) -> tile.AvailableNeighbors | None:

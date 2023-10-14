@@ -1,12 +1,13 @@
 from queue import Queue
 
 
-def propagate_collapse(self, row, column):
+def propagate_collapse(self, cell_frm):
     from wfc import TileSet, Tile, CellFrame
     self: TileSet
+    cell_frm: CellFrame
 
     q = Queue()
-    q.put(self.board[row][column])
+    q.put(self.board[cell_frm.row][cell_frm.column])
 
     while not q.empty():
         curr_cell: CellFrame = q.get()
