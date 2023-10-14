@@ -24,3 +24,34 @@ def propagate_collapse(self, cell_frm):
             adjacent_cell: CellFrame = self.board[next_row][next_col]
             if adjacent_cell.apply_new_rules(cell_neighbors[direction]):
                 q.put(adjacent_cell)
+
+
+def auto_solve(self):
+    from wfc import TileSet, CellFrame
+    self: TileSet
+
+    max_entropy = -1
+    min_entropy = [float('inf'), None]
+    map_size = self.map_frm.map_size
+
+    while max_entropy != 0:
+        max_entropy = -1
+        min_entropy[0] = float('inf')
+        for i in range(map_size):
+            for j in range(map_size):
+                cell_frm: CellFrame = self.board[i][j]
+                cell_entropy = cell_frm.get_entropy()
+                if isinstance(cell_entropy, CellFrame.State):
+                    max_entropy = max(max_entropy, 0)
+                    continue
+
+                max_entropy = max(max_entropy, cell_entropy)
+                if min_entropy[0] > cell_entropy:
+                    min_entropy[0] = cell_entropy
+                    min_entropy[1] = cell_frm
+
+        if min_entropy[1] is None:
+            continue
+
+        min_entropy[1].collapse_cell()
+        self.propagate_collapse(min_entropy[1])

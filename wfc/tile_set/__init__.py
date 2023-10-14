@@ -8,7 +8,7 @@ from .tile import Tile
 
 
 class TileSet:
-    from ._entropy import propagate_collapse
+    from ._entropy import propagate_collapse, auto_solve
     from ._tile_pack import __len__, items, values, resize_pack, get_coords
 
     def __init__(self, path: str, map_frm, map_size: int, cell_size: int):
