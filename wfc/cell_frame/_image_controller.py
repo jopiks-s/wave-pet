@@ -5,6 +5,18 @@ from PIL import Image
 from . import ImageLabel, tk
 
 
+def handle_image_click(self, e: tk.Event):
+    from . import CellFrame
+    self: CellFrame
+    # [TODO] add a handler when clicked and cell is already collapsed
+    if len(self.mapped_imgs) == 1:
+        assert self.state == CellFrame.State.Collapsed
+        return
+
+    self.collapse_cell(e.widget)
+    self.tile_set.propagate_collapse(self.row, self.column)
+
+
 def select_image(self, img_lbl: ImageLabel):
     from . import CellFrame
     self: CellFrame
@@ -27,7 +39,7 @@ def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel) -> None:
         img_lbl.grid_forget()
 
     if not len(self.mapped_imgs):
-        self.finish_cell()
+        self._fill_empty_cell()
     else:
         self._reorganize_layout()
 
@@ -36,12 +48,14 @@ def _reorganize_layout(self):
     from . import CellFrame
     self: CellFrame
 
-    self.max_side = ceil(sqrt(len(self.mapped_imgs)))
+    new_max_side = ceil(sqrt(len(self.mapped_imgs)))
     for i, img_lbl in enumerate(self.mapped_imgs):
-        row, col = i // self.max_side, i % self.max_side
+        row, col = i // new_max_side, i % new_max_side
         img_lbl.grid(row=row, column=col)
 
-    self._update_image_size()
+    if new_max_side != self.max_side:
+        self.max_side = new_max_side
+        self._update_image_size()
 
 
 def _update_image_size(self):

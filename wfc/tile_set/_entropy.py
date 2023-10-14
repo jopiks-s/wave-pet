@@ -2,7 +2,7 @@ from queue import Queue
 
 
 def propagate_collapse(self, row, column):
-    from wfc import TileSet, CellFrame, Tile
+    from wfc import TileSet, Tile, CellFrame
     self: TileSet
 
     q = Queue()
@@ -10,7 +10,7 @@ def propagate_collapse(self, row, column):
 
     while not q.empty():
         curr_cell: CellFrame = q.get()
-        if curr_cell.finish:
+        if curr_cell.state == CellFrame.State.Broken:
             continue
 
         cell_neighbors = curr_cell.get_available_neighbors()

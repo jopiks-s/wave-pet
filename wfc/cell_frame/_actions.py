@@ -1,17 +1,26 @@
-import tkinter as tk
+from random import choice
+from typing import TypeVar
+
 from wfc import tile
 
 
-def collapse_cell(self, e: tk.Event):
+def collapse_cell(self, img_lbl=None):
+    """Reduce entropy to 0 by choosing one of the remaining tiles in the cell.
+    If argument 'img_lbl' wasn`t passed, random tile is selected"""
     from . import CellFrame
+    from image_label import ImageLabel
     self: CellFrame
+    img_lbl: ImageLabel | None
 
-    # [TODO] add a handler when only one tile remains
-    if len(self.mapped_imgs) == 1:
+    if self.state != CellFrame.State.Stable:
         return
+    assert len(self.mapped_imgs) > 1
 
-    self.select_image(e.widget)
-    self.tile_set.propagate_collapse(self.row, self.column)
+    self.State = CellFrame.State.Collapsed
+    if img_lbl is None:
+        img_lbl = choice(self.mapped_imgs)
+
+    self.select_image(img_lbl)
 
 
 def apply_new_rules(self, rules: list[str]) -> bool:
@@ -25,20 +34,11 @@ def apply_new_rules(self, rules: list[str]) -> bool:
         if cell_tile.name not in rules:
             to_delete.append(img_lbl)
 
+    if len(to_delete) == len(self.mapped_imgs):
+        self.state = CellFrame.State.Broken
+
     self.delete_images(to_delete)
     return len(to_delete) > 0
-
-
-def finish_cell(self):
-    from . import CellFrame
-    self: CellFrame
-
-    if len(self.mapped_imgs):
-        self.delete_images(self.mapped_imgs.keys())
-        return
-
-    self.finish = True
-    self._fill_empty_cell()
 
 
 def get_available_neighbors(self) -> tile.AvailableNeighbors | None:
@@ -58,3 +58,17 @@ def get_available_neighbors(self) -> tile.AvailableNeighbors | None:
         valid_adjacent[direction] = list(union_res)
 
     return valid_adjacent
+
+
+IntOrState = TypeVar('IntOrState')
+
+
+def get_entropy(self) -> IntOrState:
+    """Return int if neither collapsed nor broken, otherwise State of the cell"""
+    from . import CellFrame
+    self: CellFrame
+
+    if self.state != CellFrame.State.Stable:
+        return self.state
+
+    return len(self.mapped_imgs)

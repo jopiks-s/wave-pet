@@ -7,8 +7,10 @@ from wfc import ImageLabel, TileSet
 
 
 class CellFrame(tk.Frame):
-    from ._actions import collapse_cell, apply_new_rules, get_available_neighbors, finish_cell
-    from ._image_controller import select_image, delete_images, _reorganize_layout, _update_image_size, _fill_empty_cell
+    from ._actions import collapse_cell, apply_new_rules, get_available_neighbors, get_entropy
+    from ._image_controller import handle_image_click, select_image, delete_images, \
+        _reorganize_layout, _update_image_size, _fill_empty_cell
+    from ._state import State
 
     def __init__(self, tile_set, size: int,
                  scaled_imgs: dict[str, tuple[Image, PhotoImage]] | None = None, *args, **kwargs):
@@ -23,7 +25,7 @@ class CellFrame(tk.Frame):
         self.mapped_imgs: dict[ImageLabel, Tile] = {}
         self.row = -1
         self.column = -1
-        self.finish = False
+        self.state = CellFrame.State.Stable
 
         self._init_from_tile_set(size, scaled_imgs)
 
@@ -37,7 +39,7 @@ class CellFrame(tk.Frame):
             img_lbl = ImageLabel(tile.image, *scaled_imgs[tile.name],
                                  master=self, image=scaled_imgs[tile.name][1])
             img_lbl.grid(row=row, column=col, sticky='nsew')
-            img_lbl.bind('<Button-1>', self.collapse_cell)
+            img_lbl.bind('<Button-1>', self.handle_image_click)
             self.mapped_imgs[img_lbl] = tile
 
     def grid(self, **kwargs):
