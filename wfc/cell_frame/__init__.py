@@ -13,8 +13,9 @@ class CellFrame(tk.Frame):
     from ._state import State
 
     def __init__(self, tile_set, size: int,
-                 scaled_imgs: dict[str, tuple[Image, PhotoImage]] | None = None, *args, **kwargs):
-        from wfc.tile_set import Tile
+                 scaled_imgs: dict[str, tuple[Image, PhotoImage]] | None = None,
+                 *args, **kwargs):
+        from wfc import Tile
 
         super().__init__(*args, borderwidth=2, relief='ridge', bg='black', **kwargs)
         self.grid_propagate(False)

@@ -37,7 +37,8 @@ def get_coords(self, row: int, column: int, direction) -> tuple[int, int] | tupl
         case Tile.Directions.LEFT:
             column -= 1
 
-    if 0 <= row < self.map_frm.map_size and 0 <= column < self.map_frm.map_size:
+    board_dimension = self.map_frm.board_dimension
+    if 0 <= row < board_dimension and 0 <= column < board_dimension:
         return row, column
 
     return None, None

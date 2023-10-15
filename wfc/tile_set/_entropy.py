@@ -32,13 +32,13 @@ def auto_solve(self):
 
     max_entropy = -1
     min_entropy = [float('inf'), None]
-    map_size = self.map_frm.map_size
+    board_dimension = self.map_frm.board_dimension
 
     while max_entropy != 0:
         max_entropy = -1
         min_entropy[0] = float('inf')
-        for i in range(map_size):
-            for j in range(map_size):
+        for i in range(board_dimension):
+            for j in range(board_dimension):
                 cell_frm: CellFrame = self.board[i][j]
                 cell_entropy = cell_frm.get_entropy()
                 if isinstance(cell_entropy, CellFrame.State):

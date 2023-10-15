@@ -10,10 +10,13 @@ from .tile import Tile
 class TileSet:
     from ._entropy import propagate_collapse, auto_solve
     from ._tile_pack import __len__, items, values, resize_pack, get_coords
+    from ._initialize_board import _create_board
 
-    def __init__(self, path: str, map_frm, map_size: int, cell_size: int):
+    def __init__(self, path: str, map_frm, board_frm):
         from wfc import CellFrame
-        from map import Map
+        from map import Map, BoardFrame
+        map_frm: Map
+        board_frm: BoardFrame
 
         rules_path = f'{path}/set_rules.json'
         assert os.path.exists(rules_path), f'Path to rules file: {rules_path}'
@@ -35,15 +38,4 @@ class TileSet:
         self.grid_size = (math.ceil(len(self) / self.cell_dim),
                           self.cell_dim)
 
-        self._create_map(map_frm, map_size, cell_size)
-
-    def _create_map(self, map_frm, map_size, cell_size):
-        from wfc import CellFrame
-
-        scaled_imgs = self.resize_pack(int(cell_size / self.cell_dim))
-        for i in range(map_size):
-            self.board.append([])
-            for j in range(map_size):
-                cell_frm = CellFrame(self, cell_size, scaled_imgs, master=map_frm)
-                cell_frm.grid(row=i, column=j, sticky='nsew')
-                self.board[i].append(cell_frm)
+        self._create_board(map_frm, board_frm)
