@@ -21,7 +21,8 @@ class TileSet:
         rules_path = f'{path}/set_rules.json'
         assert os.path.exists(rules_path), f'Path to rules file: {rules_path}'
 
-        self.map_frm: Map = map_frm
+        self.map_frm = map_frm
+        self.board_frm = board_frm
         self.board: list[list[CellFrame]] = []
         self.tile_pack = {}
         with open(rules_path, 'r') as f:

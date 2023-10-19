@@ -22,6 +22,7 @@ def resize_pack(self, size: int) -> dict[str, tuple[Image.Image, ImageTk.PhotoIm
     return scaled_imgs
 
 
+# todo: move to 'board' class
 def get_coords(self, row: int, column: int, direction) -> tuple[int, int] | tuple[None, None]:
     from . import TileSet, Tile
     self: TileSet

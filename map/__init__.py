@@ -20,7 +20,7 @@ class Map(tk.Frame):
         self.board_frm = BoardFrame(self.board_size['width'], self.board_size['height'],
                                     board_dimension, self.cell_size, master=self)
         self.tile_set = TileSet(tile_set_path, map_frm=self, board_frm=self.board_frm)
-        self.control_frm = ControlFrame(width=500, height=100, master=self)  # magic_number
+        self.control_frm = ControlFrame(self.tile_set, width=500, height=100, master=self)  # magic_number
         self.speed_frm = SpeedFrame(width=500, height=100, master=self)  # magic_number
 
         self.board_frm.pack(anchor='center')
