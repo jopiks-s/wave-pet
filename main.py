@@ -11,7 +11,7 @@ root.title('WFC')
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
 s_w, s_h = root.winfo_screenwidth(), root.winfo_screenheight()
-w, h = 600, 600
+w, h = 600, 700
 x, y = int((s_w / 2) - (w / 2)), int((s_h / 2) - (h / 2))
 root.geometry(f'{w}x{h}+{x}+{y}')
 root.resizable(False, False)
