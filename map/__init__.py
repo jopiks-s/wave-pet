@@ -3,6 +3,7 @@ import tkinter as tk
 from wfc import TileSet
 from .board_frame import BoardFrame
 from .control_frame import ControlFrame
+from .speed_frame import SpeedFrame
 
 
 class Map(tk.Frame):
@@ -20,6 +21,8 @@ class Map(tk.Frame):
                                     board_dimension, self.cell_size, master=self)
         self.tile_set = TileSet(tile_set_path, map_frm=self, board_frm=self.board_frm)
         self.control_frm = ControlFrame(width=500, height=100, master=self)  # magic_number
+        self.speed_frm = SpeedFrame(width=500, height=100, master=self)  # magic_number
 
         self.board_frm.pack(anchor='center')
         self.control_frm.pack(anchor='center')
+        self.speed_frm.pack(anchor='center')
