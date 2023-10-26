@@ -13,8 +13,7 @@ class CellFrame(tk.Frame):
     from ._state import State
 
     def __init__(self, board, tile_set, cell_size: int,
-                 scaled_imgs: dict[str, tuple[Image, PhotoImage]] | None = None,
-                 *args, **kwargs):
+                 scaled_imgs: dict[str, Image], *args, **kwargs):
         from wfc import Tile, TileSet, Board
         board: Board
         tile_set: TileSet
@@ -35,16 +34,9 @@ class CellFrame(tk.Frame):
         self._init_from_tile_set(scaled_imgs)
 
     def _init_from_tile_set(self, scaled_imgs):
-        from wfc import TileSet
-        tile_set: TileSet
-
-        if scaled_imgs is None:
-            scaled_imgs = self.tile_set.resize_pack(self.img_size)
-
         for i, tile in enumerate(self.tile_set.values()):
             row, col = i // self.max_side, i % self.max_side
-            img_lbl = ImageLabel(tile.image, *scaled_imgs[tile.name],
-                                 master=self, image=scaled_imgs[tile.name][1])
+            img_lbl = ImageLabel(tile.image, scaled_imgs[tile.name], master=self)
             img_lbl.grid(row=row, column=col, sticky='nsew')
             img_lbl.bind('<Button-1>', self.handle_image_click)
             self.mapped_imgs[img_lbl] = tile

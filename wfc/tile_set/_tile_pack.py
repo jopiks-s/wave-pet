@@ -28,11 +28,10 @@ def values(self) -> ValuesView[Tile]:
     return self.tile_pack.values()
 
 
-def resize_pack(self, size: int) -> dict[str, tuple[Image.Image, ImageTk.PhotoImage]]:
+def resize_pack(self, size: int) -> dict[str, Image.Image]:
     scaled_imgs = {}
     for name, tile in self.items():
-        resized_img = tile.image.resize((size, size), Image.LANCZOS)
-        scaled_imgs[name] = (resized_img, ImageTk.PhotoImage(resized_img))
+        scaled_imgs[name] = tile.image.resize((size, size), Image.LANCZOS)
 
     return scaled_imgs
 

@@ -6,12 +6,13 @@ from PIL.ImageTk import PhotoImage
 
 
 class ImageLabel(tk.Label):
-    def __init__(self, src_image: Image, img: Image, img_tk: PhotoImage, *args, **kwargs):
+    def __init__(self, src_image: Image, img: Image, *args, **kwargs):
         super().__init__(*args, borderwidth=0, **kwargs)
 
         self.src_image: Image = src_image
-        self._resized_img: Image = img
-        self.resized_img_tk: ImageTk = img_tk
+        self._resized_img: Image | None = None
+        self.resized_img_tk: PhotoImage | None = None
+        self.resized_img = img
         self.grid_propagate(False)
 
     @property
