@@ -1,11 +1,6 @@
 import tkinter as tk
 from map import Map
 
-
-def auto(e):
-    map_frm.tile_set.auto_solve()
-
-
 root = tk.Tk()
 root.title('WFC')
 root.rowconfigure(0, weight=1)
@@ -18,7 +13,5 @@ root.resizable(False, False)
 
 map_frm = Map(board_dimension=10, tile_set_path='tiles/road', master=root, width=w, height=h)
 map_frm.grid(row=0, column=0, sticky='nsew')
-
-root.bind('<KeyPress-w>', auto)
 
 root.mainloop()

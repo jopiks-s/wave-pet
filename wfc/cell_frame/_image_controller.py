@@ -10,13 +10,13 @@ def handle_image_click(self, e: tk.Event):
     self: CellFrame
     assert isinstance(e.widget, ImageLabel)
 
-    # [TODO] add a handler when clicked and cell is already collapsed
+    # todo: add a handler when clicked and cell is already collapsed
     if len(self.mapped_imgs) == 1:
         assert self.state == CellFrame.State.Collapsed
         return
 
     self.collapse_cell(e.widget)
-    self.tile_set.propagate_collapse(self)
+    self.board.propagate_collapse(self)
 
 
 def select_image(self, img_lbl: ImageLabel):

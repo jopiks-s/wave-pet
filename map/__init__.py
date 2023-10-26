@@ -11,16 +11,15 @@ class Map(tk.Frame):
         assert 'width' in kwargs and 'height' in kwargs, 'Width and Height arguments not passed for initialization'
 
         super().__init__(*args, borderwidth=0, **kwargs)
+        width, height = kwargs['width'], kwargs['height']
+        self.map_size = (width, height)
 
-        self.board_dimension = board_dimension
-        self.frm_size = {'width': kwargs['width'], 'height': kwargs['height']}
-        self.board_size = {'width': kwargs['width'] - 100, 'height': kwargs['height'] - 200}  # magic_number
-        self.cell_size = min(self.board_size['width'], self.board_size['height']) / board_dimension
+        self.tile_set = TileSet(tile_set_path)
 
-        self.board_frm = BoardFrame(self.board_size['width'], self.board_size['height'],
-                                    board_dimension, self.cell_size, master=self)
-        self.tile_set = TileSet(tile_set_path, map_frm=self, board_frm=self.board_frm)
-        self.control_frm = ControlFrame(self.tile_set, width=500, height=100, master=self)  # magic_number
+        self.board_frm = BoardFrame(self.tile_set, width=500, height=500, board_dimension=board_dimension,
+                                    master=self)  # magic_number
+        self.control_frm = ControlFrame(self.board_frm.board, self.tile_set, width=500, height=100,
+                                        master=self)  # magic_number
         self.speed_frm = SpeedFrame(width=500, height=100, master=self)  # magic_number
 
         self.board_frm.pack(anchor='center')

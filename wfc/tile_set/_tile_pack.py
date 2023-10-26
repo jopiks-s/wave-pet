@@ -1,15 +1,30 @@
+from math import ceil, sqrt
+from typing import TypeVar, ValuesView
+
 from PIL import Image, ImageTk
 
 
-def __len__(self):
+def __len__(self) -> int:
+    from . import TileSet
+    self: TileSet
+
     return len(self.tile_pack)
 
 
 def items(self):
+    from . import TileSet
+    self: TileSet
+
     return self.tile_pack.items()
 
 
-def values(self):
+Tile = TypeVar('Tile')
+
+
+def values(self) -> ValuesView[Tile]:
+    from . import TileSet
+    self: TileSet
+
     return self.tile_pack.values()
 
 
@@ -22,24 +37,8 @@ def resize_pack(self, size: int) -> dict[str, tuple[Image.Image, ImageTk.PhotoIm
     return scaled_imgs
 
 
-# todo: move to 'board' class
-def get_coords(self, row: int, column: int, direction) -> tuple[int, int] | tuple[None, None]:
-    from . import TileSet, Tile
+def get_square_bound(self):
+    from . import TileSet
     self: TileSet
-    direction: Tile.Directions
 
-    match direction:
-        case Tile.Directions.UP:
-            row -= 1
-        case Tile.Directions.RIGHT:
-            column += 1
-        case Tile.Directions.DOWN:
-            row += 1
-        case Tile.Directions.LEFT:
-            column -= 1
-
-    board_dimension = self.map_frm.board_dimension
-    if 0 <= row < board_dimension and 0 <= column < board_dimension:
-        return row, column
-
-    return None, None
+    return ceil(sqrt(len(self)))
