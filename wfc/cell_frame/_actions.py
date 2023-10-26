@@ -4,6 +4,17 @@ from typing import TypeVar
 from wfc import tile
 
 
+def reset_cell(self):
+    from . import CellFrame
+    self: CellFrame
+
+    self._delete_all_images()
+    self.max_side = self.tile_set.get_square_bound()
+    self.img_size = int(self.cell_size / self.max_side)
+    print(len(self.grid_slaves()))
+    self.create_from_tile_set()
+
+
 def collapse_cell(self, img_lbl=None):
     """Reduce entropy to 0 by choosing one of the remaining tiles in the cell.
     If argument 'img_lbl' wasn`t passed, random tile is selected"""
@@ -20,7 +31,7 @@ def collapse_cell(self, img_lbl=None):
     if img_lbl is None:
         img_lbl = choice(list(self.mapped_imgs))
 
-    self.select_image(img_lbl)
+    self._select_image(img_lbl)
 
 
 def apply_new_rules(self, rules: list[str]) -> bool:
@@ -44,7 +55,7 @@ def apply_new_rules(self, rules: list[str]) -> bool:
         elif len(mapped_copy) == 1:
             self.collapse_cell(next(iter(mapped_copy)))
         else:
-            self.delete_images(to_delete)
+            self._delete_images(to_delete)
 
     return changed
 

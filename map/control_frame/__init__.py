@@ -15,8 +15,8 @@ class ControlFrame(tk.Frame):
         self.columnconfigure([1, 2], weight=1)
 
         self.resolution_frame = ResolutionFrame(100, 100, master=self)  # magic_number
-        self.reset_btn = ResetButton(master=self)
-        self.solve_btn = SolveButton(board, tile_set, master=self)
+        self.reset_btn = ResetButton(board, master=self)
+        self.solve_btn = SolveButton(board, master=self)
 
         self.resolution_frame.grid(row=0, column=0, sticky='nsew')
         self.reset_btn.grid(row=0, column=1, sticky='we', padx=5, ipady=8)  # magic_number

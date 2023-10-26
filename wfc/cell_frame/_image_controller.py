@@ -19,16 +19,16 @@ def handle_image_click(self, e: tk.Event):
     self.board.propagate_collapse(self)
 
 
-def select_image(self, img_lbl: ImageLabel):
+def _select_image(self, img_lbl: ImageLabel):
     from . import CellFrame
     self: CellFrame
 
     nl = list(self.mapped_imgs)
     nl.remove(img_lbl)
-    self.delete_images(nl)
+    self._delete_images(nl)
 
 
-def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel) -> None:
+def _delete_images(self, img_lbls: list[ImageLabel] | ImageLabel) -> None:
     from . import CellFrame
     self: CellFrame
 
@@ -44,6 +44,15 @@ def delete_images(self, img_lbls: list[ImageLabel] | ImageLabel) -> None:
         self._fill_empty_cell()
     else:
         self._reorganize_layout()
+
+
+def _delete_all_images(self):
+    from . import CellFrame
+    self: CellFrame
+
+    for img_lbl in list(self.mapped_imgs):
+        self.mapped_imgs.pop(img_lbl)
+        img_lbl.grid_forget()
 
 
 def _reorganize_layout(self):
