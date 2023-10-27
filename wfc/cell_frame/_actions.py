@@ -8,10 +8,12 @@ def reset_cell(self):
     from . import CellFrame
     self: CellFrame
 
-    self._delete_all_images()
+    if self.state == CellFrame.State.Broken:
+        self._undo_fill_empty_cell()
+
     self.max_side = self.tile_set.get_square_bound()
-    self.img_size = int(self.cell_size / self.max_side)
-    print(len(self.grid_slaves()))
+    self.state = CellFrame.State.Stable
+    self._delete_all_images()
     self.create_from_tile_set()
 
 

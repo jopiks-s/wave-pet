@@ -9,7 +9,6 @@ def handle_image_click(self, e: tk.Event):
     from . import CellFrame
     self: CellFrame
     assert isinstance(e.widget, ImageLabel)
-
     # todo: add a handler when clicked and cell is already collapsed
     if len(self.mapped_imgs) == 1:
         assert self.state == CellFrame.State.Collapsed
@@ -94,3 +93,15 @@ def _fill_empty_cell(self):
     self.columnconfigure(0, weight=1)
     puff_lbl = tk.Label(self, text='Puffed!', fg='white', bg='black')
     puff_lbl.grid(row=0, column=0)
+
+
+def _undo_fill_empty_cell(self):
+    from . import CellFrame
+    self: CellFrame
+
+    assert len(self.grid_slaves(row=0, column=0)) > 0, 'Puff label does not exist'
+
+    self['cursor'] = 'arrow'
+    self.rowconfigure(0, weight=0)
+    self.columnconfigure(0, weight=0)
+    self.grid_slaves(row=0, column=0)[0].grid_forget()
