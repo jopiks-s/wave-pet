@@ -40,6 +40,7 @@ def apply_new_rules(self, rules: list[str]) -> bool:
     if changed:
         if len(mapped_copy) == 0:
             self.state = CellFrame.State.Broken
+            self._delete_images(to_delete)
         elif len(mapped_copy) == 1:
             self.collapse_cell(next(iter(mapped_copy)))
         else:
