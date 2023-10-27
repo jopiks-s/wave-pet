@@ -12,13 +12,17 @@ def _create_board(self):
             cell_frm.grid(row=i, column=j, sticky='nsew')
             self._board[i].append(cell_frm)
 
-    self.complete = 0
+    self.size = self.dim * self.dim
+    self.complete.set(0)
+    self.real_size.set(self.size)
 
 
 def reset_board(self):
     from wfc import Board
     self: Board
 
-    self.complete = 0
+    self.solved = False
+    self.complete.set(0)
+    self.real_size.set(self.size)
     for cell_frm in sum(self._board, []):
         cell_frm.reset_cell()

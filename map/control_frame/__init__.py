@@ -6,7 +6,7 @@ from .reset_button import ResetButton
 
 
 class ControlFrame(tk.Frame):
-    def __init__(self, board, tile_set, width: int, height: int, *args, **kwargs):
+    def __init__(self, board, width: int, height: int, *args, **kwargs):
         super().__init__(*args, borderwidth=0, bg='purple', width=width, height=height, **kwargs)
 
         self.grid_propagate(False)
@@ -14,7 +14,7 @@ class ControlFrame(tk.Frame):
         self.columnconfigure(0, weight=3)
         self.columnconfigure([1, 2], weight=1)
 
-        self.resolution_frame = ResolutionFrame(100, 100, master=self)  # magic_number
+        self.resolution_frame = ResolutionFrame(board, 100, 100, master=self)  # magic_number
         self.reset_btn = ResetButton(board, master=self)
         self.solve_btn = SolveButton(board, master=self)
 

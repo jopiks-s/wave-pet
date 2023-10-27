@@ -1,4 +1,5 @@
 from wfc import TileSet
+from tkinter import IntVar
 
 
 class Board:
@@ -14,8 +15,10 @@ class Board:
         self.dim = dim
         self.tile_set = tile_set
         self.board_frame = board_frm
-        # todo: make it property for resolution track
-        self.complete = -1
+        self.solved = False
+        self.complete = IntVar(value=-1)
+        self.real_size = IntVar(value=-1)
+        self.size = -1
         self._board: list[list[CellFrame]] = []
 
         self._create_board()

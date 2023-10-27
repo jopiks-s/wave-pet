@@ -18,7 +18,7 @@ class Map(tk.Frame):
 
         self.board_frm = BoardFrame(self.tile_set, width=500, height=500, board_dimension=board_dimension,
                                     master=self)  # magic_number
-        self.control_frm = ControlFrame(self.board_frm.board, self.tile_set, width=500, height=100,
+        self.control_frm = ControlFrame(self.board_frm.board, width=500, height=100,
                                         master=self)  # magic_number
         self.speed_frm = SpeedFrame(width=500, height=100, master=self)  # magic_number
 

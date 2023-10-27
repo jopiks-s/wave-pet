@@ -29,27 +29,30 @@ def auto_solve(self):
     from wfc import Board, CellFrame
     self: Board
 
-    max_entropy = -1
+    if self.solved:
+        return
+
+    max_entropy = float('inf')
     min_entropy = [float('inf'), None]
 
-    while max_entropy != 0:
+    while max_entropy > 1:
         max_entropy = -1
         min_entropy[0] = float('inf')
+        # find min entropy cell
         for i in range(self.dim):
             for j in range(self.dim):
                 cell_frm: CellFrame = self.get(i, j)
                 cell_entropy = cell_frm.get_entropy()
-                if isinstance(cell_entropy, CellFrame.State):
-                    max_entropy = max(max_entropy, 0)
-                    continue
-
                 max_entropy = max(max_entropy, cell_entropy)
-                if min_entropy[0] > cell_entropy:
-                    min_entropy[0] = cell_entropy
-                    min_entropy[1] = cell_frm
+                if cell_entropy > 1:
+                    if min_entropy[0] > cell_entropy:
+                        min_entropy[0] = cell_entropy
+                        min_entropy[1] = cell_frm
 
-        if min_entropy[1] is None:
+        if min_entropy[0] == float('inf'):
             continue
 
         min_entropy[1].collapse_cell()
         self.propagate_collapse(min_entropy[1])
+
+    self.solved = True
