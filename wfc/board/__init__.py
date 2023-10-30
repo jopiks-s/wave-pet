@@ -15,8 +15,8 @@ class Board:
         self.dim = dim
         self.tile_set = tile_set
         self.board_frame = board_frm
-        self.solved = False
-        self.complete = IntVar(value=-1)
+        self.complete = False
+        self.solved = IntVar(value=-1)
         self.real_size = IntVar(value=-1)
         self.size = -1
         self._board: list[list[CellFrame]] = []

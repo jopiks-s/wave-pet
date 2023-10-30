@@ -33,8 +33,7 @@ def collapse_cell(self, img_lbl=None):
     self._select_image(img_lbl)
 
     self.state = CellFrame.State.Collapsed
-    # todo: fix 100/98(-2), how does it happen???
-    self.board.complete.set(self.board.complete.get() + 1)
+    self.board.solved.set(self.board.solved.get() + 1)
 
 
 def apply_new_rules(self, rules: list[str]) -> bool:
@@ -54,6 +53,8 @@ def apply_new_rules(self, rules: list[str]) -> bool:
     if changed:
         if len(mapped_copy) == 0:
             self._delete_images(to_delete)
+            if self.state == CellFrame.State.Collapsed:
+                self.board.solved.set(self.board.solved.get() - 1)
             self.state = CellFrame.State.Broken
             self.board.real_size.set(self.board.real_size.get() - 1)
 

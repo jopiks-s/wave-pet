@@ -15,21 +15,21 @@ class ResolutionFrame(tk.Frame):
         self.columnconfigure(1, weight=1)
 
         self.board = board
-        self.progress_txt = tk.StringVar(value=f'{board.complete.get()}/{board.real_size.get()}')
+        self.progress_txt = tk.StringVar(value=f'{board.solved.get()}/{board.real_size.get()}')
 
-        self.progress_bar = ttk.Progressbar(value=0, variable=board.complete, master=self)
+        self.progress_bar = ttk.Progressbar(value=0, variable=board.solved, master=self)
         self.progress_lbl = tk.Label(text='50/100', textvariable=self.progress_txt, master=self)
 
         self.progress_bar.grid(row=0, column=0, sticky='nsew', padx=10, pady=35)  # magic_number
         self.progress_lbl.grid(row=0, column=1, sticky='w')
 
-        self.board.complete.trace_add('write', self._on_complete_change)
-        self.board.real_size.trace_add('write', self._on_complete_change)
+        self.board.solved.trace_add('write', self._on_progress_change)
+        self.board.real_size.trace_add('write', self._on_progress_change)
 
-    def _on_complete_change(self, var, index, mode):
-        complete = self.board.complete.get()
+    def _on_progress_change(self, var, index, mode):
+        solved = self.board.solved.get()
         real_size = self.board.real_size.get()
-        out_txt = f'{complete}/{real_size}'
+        out_txt = f'{solved}/{real_size}'
 
         diff = self.board.size - real_size
         if diff > 0:
