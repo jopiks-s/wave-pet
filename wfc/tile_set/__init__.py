@@ -1,6 +1,7 @@
 import json
 import os
 
+import customtkinter as ctk
 from PIL import Image
 
 from .tile import Tile
@@ -22,4 +23,5 @@ class TileSet:
 
                 name = file_name.split('.')[0]
                 img = Image.open(f'{path}/{file_name}')
-                self.tile_pack[name] = Tile(name, set_rules[name], img)
+                image = ctk.CTkImage(img, size=img.size)
+                self.tile_pack[name] = Tile(name, set_rules[name], image)

@@ -1,3 +1,4 @@
+import customtkinter as ctk
 from dataclasses import dataclass, field
 from enum import Enum
 
@@ -14,7 +15,7 @@ class Tile:
 
     name: str
     rules: list[list[str]]
-    image: Image.Image
+    image: ctk.CTkImage
 
 
 @dataclass
