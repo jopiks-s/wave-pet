@@ -1,27 +1,11 @@
-import tkinter as tk
-
-from PIL import ImageTk
-from PIL.Image import Image
-from PIL.ImageTk import PhotoImage
+import customtkinter as ctk
 
 
-class ImageLabel(tk.Label):
-    def __init__(self, src_image: Image, img: Image, *args, **kwargs):
-        super().__init__(*args, borderwidth=0, **kwargs)
-
-        self.src_image: Image = src_image
-        self._resized_img: Image | None = None
-        self.resized_img_tk: PhotoImage | None = None
-        self.resized_img = img
+class ImageLabel(ctk.CTkLabel):
+    def __init__(self, image: ctk.CTkImage, *args, **kwargs):
+        super().__init__(*args, text='', corner_radius=0, image=image, **kwargs)
         self.grid_propagate(False)
 
-    @property
-    def resized_img(self):
-        return self._resized_img
-
-    @resized_img.setter
-    def resized_img(self, value):
-        self._resized_img = value
-        self.resized_img_tk = ImageTk.PhotoImage(value)
-
-        self['image'] = self.resized_img_tk
+    def resize_image(self, size: int):
+        self.configure(width=size, height=size)
+        self.cget('image').configure(size=(size, size))
