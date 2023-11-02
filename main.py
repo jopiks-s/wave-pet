@@ -1,7 +1,11 @@
-import tkinter as tk
+import customtkinter
+import customtkinter as ctk
+
 from map import Map
 
-root = tk.Tk()
+customtkinter.deactivate_automatic_dpi_awareness()
+
+root = ctk.CTk()
 root.title('WFC')
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
@@ -11,7 +15,7 @@ x, y = int((s_w / 2) - (w / 2)), int((s_h / 2) - (h / 2))
 root.geometry(f'{w}x{h}+{x}+{y}')
 root.resizable(False, False)
 
-map_frm = Map(board_dimension=11, tile_set_path='tiles/road', master=root, width=w, height=h)
+map_frm = Map(board_dimension=10, tile_set_path='tiles/road', master=root, width=w, height=h)
 map_frm.grid(row=0, column=0, sticky='nsew')
 
 root.mainloop()

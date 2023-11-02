@@ -1,13 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
+import customtkinter as ctk
 
 
-class ResolutionFrame(tk.Frame):
+class ResolutionFrame(ctk.CTkFrame):
     def __init__(self, board, width: int, height: int, *args, **kwargs):
         from wfc import Board
         board: Board
 
-        super().__init__(*args, borderwidth=0, bg='orange', width=width, height=height, **kwargs)
+        super().__init__(*args, fg_color='transparent', border_width=0, corner_radius=0, width=width, height=height,
+                         **kwargs)
 
         self.grid_propagate(False)
         self.rowconfigure(0, weight=1)
@@ -17,10 +19,11 @@ class ResolutionFrame(tk.Frame):
         self.board = board
         self.progress_txt = tk.StringVar(value=f'{board.solved.get()}/{board.real_size.get()}')
 
-        self.progress_bar = ttk.Progressbar(value=0, variable=board.solved, master=self)
-        self.progress_lbl = tk.Label(text='50/100', textvariable=self.progress_txt, master=self)
+        self.progress_bar = ctk.CTkProgressBar(master=self)
+        self.progress_bar.set(0)
+        self.progress_lbl = ctk.CTkLabel(text='50/100', textvariable=self.progress_txt, master=self)
 
-        self.progress_bar.grid(row=0, column=0, sticky='nsew', padx=10, pady=35)  # magic_number
+        self.progress_bar.grid(row=0, column=0, sticky='we', padx=10)  # magic_number
         self.progress_lbl.grid(row=0, column=1, sticky='w')
 
         self.board.solved.trace_add('write', self._on_progress_change)
@@ -37,4 +40,4 @@ class ResolutionFrame(tk.Frame):
 
         self.progress_txt.set(out_txt)
 
-        self.progress_bar['maximum'] = real_size
+        self.progress_bar.set(solved/real_size)

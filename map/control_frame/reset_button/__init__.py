@@ -1,12 +1,13 @@
 import tkinter as tk
+import customtkinter as ctk
 
 
-class ResetButton(tk.Button):
+class ResetButton(ctk.CTkButton):
     def __init__(self, board, *args, **kwargs):
         from wfc import Board
         board: Board
 
-        super().__init__(*args, text='Reset', **kwargs)
+        super().__init__(*args, text='Reset', width=0, **kwargs)
 
         self.board = board
         self.bind('<Button-1>', self.handle_click)

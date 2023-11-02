@@ -10,7 +10,6 @@ def reset_cell(self):
     if self.state == CellFrame.State.Broken:
         self._undo_fill_empty_cell()
 
-    self.max_side = self.tile_set.get_square_bound()
     self.state = CellFrame.State.Stable
     self._delete_all_images()
     self.create_from_tile_set()

@@ -1,20 +1,22 @@
+import tkinter as tk
 from math import ceil, sqrt
 
-from PIL import Image
-
-from . import ImageLabel, tk
+from . import ImageLabel
 
 
-def handle_image_click(self, e: tk.Event):
+def image_click_handler(self, e: tk.Event):
     from . import CellFrame
     self: CellFrame
-    assert isinstance(e.widget, ImageLabel)
+
+    img_lbl = e.widget.master
+    assert isinstance(img_lbl, ImageLabel), f'Incorrect type passed for this handler: {type(e.widget)}'
     # todo: add a handler when clicked and cell is already collapsed
+
     if len(self.mapped_imgs) == 1:
         assert self.state == CellFrame.State.Collapsed
         return
 
-    self.collapse_cell(e.widget)
+    self.collapse_cell(img_lbl)
     self.board.propagate_collapse(self)
 
 
@@ -75,11 +77,10 @@ def _update_image_size(self):
     if self.max_side == 0:
         return
 
-    cell_size = min(self.winfo_width(), self.winfo_height())
-    new_size = int(cell_size / self.max_side)
+    new_size = int(self.cell_size / self.max_side)
     if new_size != self.img_size:
         for img_lbl in self.mapped_imgs:
-            img_lbl.resized_img = img_lbl.src_image.resize((new_size, new_size), Image.LANCZOS)
+            img_lbl.resize_image(new_size)
 
         self.img_size = new_size
 
