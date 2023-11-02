@@ -1,4 +1,5 @@
 from copy import copy
+from tkinter import Misc
 
 import customtkinter as ctk
 
@@ -11,13 +12,12 @@ class CellFrame(ctk.CTkFrame):
         _reorganize_layout, _update_image_size, _fill_empty_cell, _undo_fill_empty_cell
     from ._state import State
 
-    def __init__(self, board, tile_set, cell_size: int,
-                 scaled_imgs: dict[str, ctk.CTkImage], *args, **kwargs):
+    def __init__(self, master: Misc, board, tile_set, scaled_imgs: dict[str, ctk.CTkImage], size: int):
         from wfc import Tile, TileSet, Board
         board: Board
         tile_set: TileSet
 
-        super().__init__(*args, fg_color='transparent', border_width=0, corner_radius=0, **kwargs)
+        super().__init__(master, size, size, 0, 0, fg_color='transparent')
 
         self.grid_propagate(False)
 
@@ -25,8 +25,8 @@ class CellFrame(ctk.CTkFrame):
         self.tile_set = tile_set
 
         self.max_side = self.tile_set.get_square_bound()
-        self.cell_size = cell_size
-        self.img_size = int(cell_size / self.max_side)
+        self.cell_size = size
+        self.img_size = int(self.cell_size / self.max_side)
         self.mapped_imgs: dict[ImageLabel, Tile] = {}
         self.imgs_copy: dict[ImageLabel, Tile] = {}
         self.row = -1
@@ -40,8 +40,7 @@ class CellFrame(ctk.CTkFrame):
             assert scaled_imgs is not None, 'Can`t create CellFrame without scaled_imgs'
             for i, tile in enumerate(self.tile_set.values()):
                 row, col = i // self.max_side, i % self.max_side
-                img_lbl = ImageLabel(image=copy(scaled_imgs[tile.name]), width=self.img_size, height=self.img_size,
-                                     master=self)
+                img_lbl = ImageLabel(self, self.img_size, self.img_size, copy(scaled_imgs[tile.name]))
                 img_lbl.grid(row=row, column=col, sticky='nsew')
                 img_lbl.bind('<Button-1>', self.image_click_handler)
                 self.mapped_imgs[img_lbl] = tile

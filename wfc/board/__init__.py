@@ -21,4 +21,4 @@ class Board:
         self.size = -1
         self._board: list[list[CellFrame]] = []
 
-        self._create_board()
+        self._create_board(self.board_frame.cell_size)

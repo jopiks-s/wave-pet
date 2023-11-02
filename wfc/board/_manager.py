@@ -1,22 +1,17 @@
-def _create_board(self):
+def _create_board(self, cell_size: int):
     from wfc import Board, CellFrame
     self: Board
 
-    img_size = int(self.board_frame.cell_size / self.tile_set.get_square_bound())
+    img_size = int(cell_size / self.tile_set.get_square_bound())
     scaled_imgs = self.tile_set.resize_pack(img_size)
-    cell_size = self.board_frame.cell_size
     for i in range(self.dim):
         self._board.append([])
         for j in range(self.dim):
-            cell_frm = CellFrame(self, self.tile_set, cell_size, scaled_imgs,
-                                 width=cell_size, height=cell_size,
-                                 master=self.board_frame)
-            if j == 0:
-                cell_frm.grid(row=i, column=j, sticky='nsew', padx=(self.board_frame.to_padx, 0))
-            if i == 0:
-                cell_frm.grid(row=i, column=j, sticky='nsew', pady=(self.board_frame.to_pady, 0))
+            cell_frm = CellFrame(self.board_frame, self, self.tile_set, scaled_imgs, cell_size)
+            padx = (self.board_frame.to_padx, 0) if j == 0 else (0, 0)
+            pady = (self.board_frame.to_pady, 0) if i == 0 else (0, 0)
 
-            cell_frm.grid(row=i, column=j, sticky='nsew')
+            cell_frm.grid(row=i, column=j, sticky='nsew', padx=padx, pady=pady)
 
             self._board[i].append(cell_frm)
 
