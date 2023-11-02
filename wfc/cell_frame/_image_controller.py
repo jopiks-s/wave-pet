@@ -1,6 +1,8 @@
 import tkinter as tk
 from math import ceil, sqrt
 
+import customtkinter as ctk
+
 from . import ImageLabel
 
 
@@ -89,11 +91,11 @@ def _fill_empty_cell(self):
     from . import CellFrame
     self: CellFrame
 
-    self['cursor'] = 'X_cursor'
+    self.configure(fg_color='gray30', cursor='X_cursor', corner_radius=10)
     self.rowconfigure(0, weight=1)
     self.columnconfigure(0, weight=1)
-    puff_lbl = tk.Label(self, text='Puffed!', fg='white', bg='black')
-    puff_lbl.grid(row=0, column=0)
+    puff_lbl = ctk.CTkLabel(self, text='Puffed!', font=(None, 11))
+    puff_lbl.grid(row=0, column=0, padx=2, pady=2)
 
 
 def _undo_fill_empty_cell(self):
@@ -101,8 +103,7 @@ def _undo_fill_empty_cell(self):
     self: CellFrame
 
     assert len(self.grid_slaves(row=0, column=0)) > 0, 'Puff label does not exist'
-
-    self['cursor'] = 'arrow'
+    self.configure(fg_color='gray20', cursor='arrow', corner_radius=0)
     self.rowconfigure(0, weight=0)
     self.columnconfigure(0, weight=0)
     self.grid_slaves(row=0, column=0)[0].grid_forget()
