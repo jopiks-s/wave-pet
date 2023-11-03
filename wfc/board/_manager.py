@@ -22,7 +22,7 @@ def _create_board(self, cell_size: int):
 
 
 def reset_board(self):
-    from wfc import Board
+    from . import Board
     self: Board
 
     self.complete.set(False)

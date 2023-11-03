@@ -9,5 +9,3 @@ def _state_handler(self, var, index, mode):
     if solved == real_size:
         if not complete:
             self.complete.set(True)
-    elif complete:
-        self.complete.set(False)
