@@ -40,7 +40,7 @@ class CellFrame(ctk.CTkFrame):
             assert scaled_imgs is not None, 'Can`t create CellFrame without scaled_imgs'
             for i, tile in enumerate(self.tile_set.values()):
                 row, col = i // self.max_side, i % self.max_side
-                img_lbl = ImageLabel(self, self.img_size, self.img_size, copy(scaled_imgs[tile.name]))
+                img_lbl = ImageLabel(self, self.img_size, copy(scaled_imgs[tile.name]))
                 img_lbl.grid(row=row, column=col, sticky='nsew')
                 img_lbl.bind('<Button-1>', self.image_click_handler)
                 self.mapped_imgs[img_lbl] = tile
