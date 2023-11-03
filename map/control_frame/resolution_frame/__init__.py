@@ -18,7 +18,7 @@ class ResolutionFrame(ctk.CTkFrame):
         self.board = board
         self.progress_txt = tk.StringVar(value=f'{board.solved.get()}/{board.real_size.get()}')
 
-        self.progress_bar = ctk.CTkProgressBar(self, height=10)
+        self.progress_bar = ctk.CTkProgressBar(self, height=10, determinate_speed=0, indeterminate_speed=0.5)
         self.progress_bar.set(0)
         self.progress_color = '#1F6AA5'
         self.complete_color = 'green'
@@ -48,6 +48,8 @@ class ResolutionFrame(ctk.CTkFrame):
     def _on_state_change(self, var, index, mode):
         complete = self.board.complete.get()
         if complete:
-            self.progress_bar.configure(progress_color=self.complete_color)
+            self.progress_bar.configure(progress_color=self.complete_color, mode='indeterminate')
+            self.progress_bar.start()
         else:
-            self.progress_bar.configure(progress_color=self.progress_color)
+            self.progress_bar.configure(progress_color=self.progress_color, mode='determinate')
+            self.progress_bar.stop()

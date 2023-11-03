@@ -4,7 +4,7 @@ import customtkinter as ctk
 
 
 class ImageLabel(ctk.CTkLabel):
-    from ._on_hover import _on_enter, _on_leave, _on_press, _on_release
+    from ._resize_events import _on_enter, _on_leave, _on_press, _on_release
 
     def __init__(self, master: Misc, size: int, image: ctk.CTkImage):
         super().__init__(master, size, size, 0, fg_color='transparent', text='', image=image)
