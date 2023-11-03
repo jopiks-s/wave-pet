@@ -16,6 +16,7 @@ def _create_board(self, cell_size: int):
             self._board[i].append(cell_frm)
 
     self.size = self.dim * self.dim
+    self.complete.set(False)
     self.solved.set(0)
     self.real_size.set(self.size)
 
@@ -24,7 +25,7 @@ def reset_board(self):
     from wfc import Board
     self: Board
 
-    self.complete = False
+    self.complete.set(False)
     self.solved.set(0)
     self.real_size.set(self.size)
     for cell_frm in sum(self._board, []):

@@ -29,7 +29,7 @@ def auto_solve(self):
     from wfc import Board, CellFrame
     self: Board
 
-    if self.complete:
+    if self.complete.get():
         return
 
     max_entropy = float('inf')
@@ -55,4 +55,4 @@ def auto_solve(self):
         min_entropy[1].collapse_cell()
         self.propagate_collapse(min_entropy[1])
 
-    self.complete = True
+    assert self.complete.get(), 'Must be complete'
