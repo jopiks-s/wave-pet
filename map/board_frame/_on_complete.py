@@ -29,14 +29,3 @@ def on_complete_impulse_animation(root: Misc, flash_number: int, flash_speed: in
     memorize_color = root.cget('border_color')
     root.configure(border_color=border_color)
     __inner__(0, True)
-
-
-def _on_complete_change(self, var, index, mode):
-    from . import BoardFrame
-    self: BoardFrame
-
-    if self.board.complete.get():
-        on_complete_impulse_animation(self, 2, 30, 100, 'green')
-    else:
-        on_complete_impulse_animation(self, 1, 60, 0, 'gray')
-

@@ -1,8 +1,7 @@
-import customtkinter as ctk
 from dataclasses import dataclass, field
 from enum import Enum
 
-from PIL import Image
+import customtkinter as ctk
 
 
 @dataclass(frozen=True)
@@ -14,7 +13,7 @@ class Tile:
         LEFT = 'LEFT'
 
     name: str
-    rules: list[list[str]]
+    rules: dict[Directions, list[str]]
     image: ctk.CTkImage
 
 

@@ -1,6 +1,6 @@
 from queue import Queue
 
-
+# todo remove unnecessarily applying new_rules for origin of propagation
 def propagate_collapse(self, cell_frm):
     from wfc import Board, CellFrame, Tile
     self: Board

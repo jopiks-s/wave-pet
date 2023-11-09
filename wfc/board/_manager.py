@@ -2,8 +2,8 @@ def _create_board(self, cell_size: int):
     from wfc import Board, CellFrame
     self: Board
 
-    img_size = int(cell_size / self.tile_set.get_square_bound())
-    scaled_imgs = self.tile_set.resize_pack(img_size)
+    img_size = int(cell_size / self.tile_set.square_bound)
+    scaled_imgs = self.tile_set.get_resized(img_size)
     for i in range(self.dim):
         self._board.append([])
         for j in range(self.dim):

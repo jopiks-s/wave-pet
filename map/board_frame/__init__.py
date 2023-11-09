@@ -2,10 +2,10 @@ from tkinter import Misc
 
 import customtkinter as ctk
 
+from ._on_complete import on_complete_impulse_animation
+
 
 class BoardFrame(ctk.CTkFrame):
-    from ._on_complete import _on_complete_change
-
     def __init__(self, master: Misc, tile_set, board_dimension: int, size: int, border_width: int):
         from wfc import TileSet, Board
         tile_set: TileSet
@@ -22,3 +22,9 @@ class BoardFrame(ctk.CTkFrame):
         self.board = Board(board_dimension, tile_set, self)
 
         self.board.complete.trace_add('write', self._on_complete_change)
+
+    def _on_complete_change(self, var, index, mode):
+        if self.board.complete.get():
+            on_complete_impulse_animation(self, 2, 30, 100, 'green')
+        else:
+            on_complete_impulse_animation(self, 1, 60, 0, 'gray')

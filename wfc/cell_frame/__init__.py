@@ -6,6 +6,7 @@ import customtkinter as ctk
 from wfc import ImageLabel
 
 
+# todo separate UI Frame from WFC Cell
 class CellFrame(ctk.CTkFrame):
     from ._actions import reset_cell, collapse_cell, apply_new_rules, get_available_neighbors, get_entropy
     from ._image_controller import image_click_handler, _select_image, _delete_images, _delete_all_images, \
@@ -24,7 +25,7 @@ class CellFrame(ctk.CTkFrame):
         self.board = board
         self.tile_set = tile_set
 
-        self.max_side = self.tile_set.get_square_bound()
+        self.max_side = self.tile_set.square_bound
         self.cell_size = size
         self.img_size = int(self.cell_size / self.max_side)
         self.mapped_imgs: dict[ImageLabel, Tile] = {}
