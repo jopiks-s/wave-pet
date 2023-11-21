@@ -16,7 +16,3 @@ class Directions(Enum):
             return Directions.RIGHT
         if self == Directions.RIGHT:
             return Directions.LEFT
-
-
-for a in Directions:
-    print(a)

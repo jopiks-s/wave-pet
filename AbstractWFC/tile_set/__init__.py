@@ -1,7 +1,6 @@
 import json
 import os
 from collections import UserDict
-from copy import copy
 from math import ceil, sqrt
 
 from AbstractWFC import tile
@@ -40,9 +39,8 @@ class TileSet(UserDict):
 
         return self._square_bound
 
-    def __copy__(self) -> dict[str, Tile]:
-        return copy(self.data)
-
+    def copy(self) -> dict[str, Tile]:
+        return self.data.copy()
     def __setitem__(self, key: str, value: Tile):
         assert key not in self, 'Attempt to reassign existing tile'
         self._square_bound = 0
