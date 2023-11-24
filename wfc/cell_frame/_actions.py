@@ -74,7 +74,7 @@ def get_available_neighbors(self) -> tile.AvailableNeighbors | None:
 
     valid_adjacent = tile.AvailableNeighbors()
 
-    for i, direction in enumerate(Tile.Directions):
+    for direction in Tile.Directions:
         union_res = set()
         for cell_tile in self.mapped_imgs.values():
             union_res.update(cell_tile.rules[direction])

@@ -3,6 +3,7 @@ from abc import ABC
 
 from AbstractWFC.cell import State
 from AbstractWFC.cell.abc_cell import AbcCell
+from AbstractWFC.tile import Directions
 
 
 class Actions(AbcCell, ABC):
@@ -30,5 +31,26 @@ class Actions(AbcCell, ABC):
         items.remove(tile_name)
 
         return self.pop(items)
+
+    def get_available_neighbors(self) -> dict[Directions, list[str]] | None:
+        if self.state == State.Broken:
+            return
+
+        available_neighbors = {_dir: set() for _dir in Directions}
+        for tile in self._tiles.values():
+            for _dir in Directions:
+                available_neighbors[_dir].update(tile.rules[_dir])
+
+        return {_dir: list(neighbors) for _dir, neighbors in available_neighbors}
+
+    def get_entropy(self) -> int:
+        """Return -1 if Broken, 0 if Collapsed, positive int if Stable"""
+        if self.state == State.Broken:
+            return -1
+        if self.state == State.Collapsed:
+            return 0
+        if self.state == State.Stable:
+            return len(self._tiles)
+
 
 from .._transformation_result import TransformationResult
