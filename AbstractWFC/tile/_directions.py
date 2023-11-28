@@ -16,3 +16,13 @@ class Directions(Enum):
             return Directions.RIGHT
         if self == Directions.RIGHT:
             return Directions.LEFT
+
+    def symbol(self):
+        if self == Directions.UP:
+            return '↑'
+        if self == Directions.DOWN:
+            return '↓'
+        if self == Directions.LEFT:
+            return '←'
+        if self == Directions.RIGHT:
+            return '→'

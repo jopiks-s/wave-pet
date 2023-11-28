@@ -1,6 +1,7 @@
 import json
 import os
 from collections import UserDict
+from copy import deepcopy
 from math import ceil, sqrt
 
 from AbstractWFC import tile
@@ -11,9 +12,6 @@ class TileSet(UserDict):
     rules_file_name = 'rule_set.json'
 
     def __init__(self, folder: str):
-        rules_path = f'{folder}/{TileSet.rules_file_name}'
-        assert os.path.exists(rules_path), f'Rules file doesn`t exist: {rules_path}'
-
         super().__init__()
 
         self._square_bound: int = 0
@@ -22,9 +20,6 @@ class TileSet(UserDict):
     def load(self, folder: str):
         rules_path = f'{folder}/{TileSet.rules_file_name}'
         assert os.path.exists(rules_path), f'Rules file doesn`t exist: {rules_path}'
-
-        if len(self) != 0:
-            self.clear()
 
         with open(rules_path, 'r') as f:
             rule_set = json.load(f)
@@ -39,8 +34,8 @@ class TileSet(UserDict):
 
         return self._square_bound
 
-    def copy(self) -> dict[str, Tile]:
-        return self.data.copy()
+    def deepcopy(self) -> dict[str, Tile]:
+        return deepcopy(self.data)
     def __setitem__(self, key: str, value: Tile):
         assert key not in self, 'Attempt to reassign existing tile'
         self._square_bound = 0

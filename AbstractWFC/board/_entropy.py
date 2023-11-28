@@ -37,17 +37,20 @@ class Entropy(AbcBoard, ABC):
         return self.propagate_collapse(cell)
 
     def propagate_collapse(self, cell: Cell) -> PropagationHistory:
-        q = PropagationHistory()
+        q = PropagationHistory(self.size)
 
         q.put(None, cell)
 
         while not q.empty():
-            curr_cell = q.get()
+            _origin_dir, curr_cell = q.get()
             if curr_cell.state == State.Broken:
                 continue
 
             cell_neighbors = curr_cell.get_available_neighbors()
             for _dir in Directions:
+                if _origin_dir == -_dir:
+                    continue
+
                 adjacent_cell = self.get(curr_cell, _dir)
                 if adjacent_cell is None:
                     continue

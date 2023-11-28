@@ -10,6 +10,6 @@ class Cell(StateController, Actions):
         self.column = column
         self.tile_set = tile_set
 
-        self._tiles = tile_set.copy()
-        self._tiles_clipboard = tile_set.copy()
+        self._tiles = tile_set.deepcopy()
+        self._tiles_clipboard = self._tiles.copy()
         self.state = State.Stable
