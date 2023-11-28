@@ -6,7 +6,7 @@ from AbstractWFC.cell import State
 @dataclass
 class TransformationResult:
     cell: 'AbcCell'
-    changed: bool
+    tiles_changed: bool
     curr_state: State
     prev_state: State
 

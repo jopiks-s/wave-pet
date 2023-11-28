@@ -41,7 +41,7 @@ class Actions(AbcCell, ABC):
             for _dir in Directions:
                 available_neighbors[_dir].update(tile.rules[_dir])
 
-        return {_dir: list(neighbors) for _dir, neighbors in available_neighbors}
+        return {_dir: list(neighbors) for _dir, neighbors in available_neighbors.items()}
 
     def get_entropy(self) -> int:
         """Return -1 if Broken, 0 if Collapsed, positive int if Stable"""

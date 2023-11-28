@@ -9,6 +9,9 @@ class StateController(AbcCell, ABC):
         if not isinstance(items, list):
             items = [items]
 
+        if not len(items):
+            return TransformationResult(self, False, self.state, self.state)
+        
         transform_res = TransformationResult(self, True, self.state, self.state)
         tiles_left = len(self._tiles) - len(items)
         if tiles_left == 0:
