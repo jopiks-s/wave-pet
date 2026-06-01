@@ -2,7 +2,7 @@ from collections import UserDict
 from typing import Any
 
 from abc_wfc import AbcTilePack, Directions
-from text_wfc.tile import TextTile
+from .tile import TextTile
 
 
 class TextTilePack(AbcTilePack, UserDict[str, TextTile]):

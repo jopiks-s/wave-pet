@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from board import Board
-from tile_pack import TextTilePack
+from .board import Board
+from .tile_pack import TextTilePack
 
 map_size = 20
 iterations = 10

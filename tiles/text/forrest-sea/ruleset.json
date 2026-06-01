@@ -6,8 +6,7 @@
       "DOWN": ["tree", "grass", "grass_2", "flower"],
       "LEFT": ["tree", "grass", "grass_2"]
     },
-    "⍋",
-    "green underline"
+    "⍋", "green underline"
   ],
   "grass": [
     {
@@ -16,8 +15,7 @@
       "DOWN": ["grass", "grass_2", "flower", "beach"],
       "LEFT": ["grass", "grass_2", "tree", "flower", "beach"]
     },
-    " ",
-    ""
+    " ", ""
   ],
   "grass_2": [
     {
@@ -26,8 +24,7 @@
       "DOWN": ["grass", "grass_2", "flower", "beach"],
       "LEFT": ["grass", "grass_2", "tree", "flower", "beach"]
     },
-    ".",
-    "green"
+    ".", "bold green dim"
   ],
   "flower": [
     {
@@ -36,8 +33,7 @@
       "DOWN": ["grass", "grass_2"],
       "LEFT": ["grass", "grass_2"]
     },
-    "⚘",
-    "bright_white"
+    "⚘", "bright_white"
   ],
   "beach": [
     {
@@ -46,8 +42,7 @@
       "DOWN": ["sea"],
       "LEFT": ["grass", "grass_2", "sea"]
     },
-    "s",
-    "yellow"
+    "s", "yellow"
   ],
   "sea": [
     {
@@ -56,7 +51,6 @@
       "DOWN": ["sea"],
       "LEFT": ["sea", "beach"]
     },
-    "~",
-    "blue"
+    "~", "bold blue"
   ]
 }
