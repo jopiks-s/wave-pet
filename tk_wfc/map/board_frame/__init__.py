@@ -15,7 +15,7 @@ class BoardFrame(ctk.CTkFrame):
         self.grid_propagate(False)
 
         self.border_width = border_width
-        # formula to get the cell size of the divisible without remainder by the number of cells
+        # formula to get the cell board_size of the divisible without remainder by the number of cells
         self.cell_size = size - border_width * 2
         self.to_pady = self.to_padx = self.cell_size % board_dimension + border_width * 2
         self.cell_size = int((self.cell_size - self.to_padx) / board_dimension)

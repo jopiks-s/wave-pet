@@ -1,34 +1,42 @@
 from collections import defaultdict
 from random import choice
+from typing import TypeVar, Generic
 
 from .cell import Cell
 from .tile_pack import AbcTilePack
 
+CellT = TypeVar("CellT", bound=Cell)
 
-class Board:
+
+class Board(Generic[CellT]):
+    cell_cls: type[CellT] = Cell
+
     def __init__(self, size: int, tile_pack: AbcTilePack):
-        self.size = size
         self.tile_pack = tile_pack
-        self._board = [[Cell(row, column, tile_pack, size) for column in range(size)] for row in
-                       range(size)]
-        self.solved = False
+
+        self._size = 0
+        self._board: list[list[CellT]] = []
+        self.change_size(size)
+
+    @property
+    def size(self) -> int:
+        return self._size
+
+    def change_size(self, new_size: int) -> None:
+        assert new_size > 0, f'Size can`t be less then one. {new_size=}'
+        if new_size == self._size:
+            return
+
+        self._size = new_size
+        self._board = [[self.cell_cls(row, column, self.tile_pack, self._size) for column in range(self._size)] for row
+                       in
+                       range(self._size)]
 
     @staticmethod
     def is_on_board(row: int, column: int, board_size: int) -> bool:
         return 0 <= row < board_size and 0 <= column < board_size
 
-    def reset(self):
-        for row in self._board:
-            for cell in row:
-                cell.reset()
-        self.solved = False
-
-    def get_cell(self, row, column) -> Cell:
-        if not Board.is_on_board(row, column, self.size):
-            raise IndexError(f'{row=}, {column=}')
-        return self._board[row][column]
-
-    def choose_cell(self) -> 'Cell | None':
+    def choose_cell(self) -> CellT | None:
         entropy_groups = defaultdict(list)
         for row in self._board:
             for cell in row:
@@ -41,9 +49,10 @@ class Board:
         low_group = list(entropy_groups.values())[0]
         return choice(low_group)
 
-    def propagate_collapse(self, cell: 'Cell'):
+    def _update_cell_neighbors(self, cell: CellT) -> set[CellT]:
+        cell: Cell
         if cell.entropy == 0:
-            return
+            return set()
 
         rules = cell.ruleset
         directions = cell.directions
@@ -61,8 +70,39 @@ class Board:
                 n_cell.tiles = updated_tiles
                 changed_cells.add(n_cell)
 
-        for changed_cell in changed_cells:
-            self.propagate_collapse(changed_cell)
+        return changed_cells
+
+    def propagate_collapse(self, cell: CellT) -> set[CellT]:
+        change_list = list(self._update_cell_neighbors(cell))
+        all_changes = set(change_list)
+
+        while change_list:
+            changed_cell = change_list.pop()
+            changes = self._update_cell_neighbors(changed_cell)
+            all_changes.update(changes)
+            change_list.extend(list(changes))
+
+        return all_changes
+
+    def is_broken(self) -> bool:
+        for row in self._board:
+            for cell in row:
+                if cell.entropy == 0:
+                    return True
+        return False
+
+    @property
+    def solved(self) -> bool:
+        for row in self._board:
+            for cell in row:
+                if cell.entropy > 1:
+                    return False
+        return True
+
+    def get_cell(self, row, column) -> CellT:
+        if not Board.is_on_board(row, column, self._size):
+            raise IndexError(f'{row=}, {column=}')
+        return self._board[row][column]
 
     def solve(self):
         if self.solved:
@@ -77,11 +117,8 @@ class Board:
             cell.collapse()
             self.propagate_collapse(cell)
         print('board solved')
-        self.solved = True
 
-    def is_broken(self) -> bool:
+    def reset(self):
         for row in self._board:
             for cell in row:
-                if cell.entropy == 0:
-                    return True
-        return False
+                cell.reset()

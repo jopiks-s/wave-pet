@@ -2,6 +2,7 @@ import json
 import os
 from abc import ABC, abstractmethod
 from collections import UserDict
+from pathlib import Path
 from typing import Any
 
 from .tile import AbcTile
@@ -10,7 +11,7 @@ from .tile import AbcTile
 class AbcTilePack(ABC, UserDict[str, AbcTile]):
     rules_file_name = 'ruleset.json'
 
-    def __init__(self, folder: str):
+    def __init__(self, folder: Path):
         super().__init__()
         self._load(folder)
 
@@ -18,9 +19,9 @@ class AbcTilePack(ABC, UserDict[str, AbcTile]):
     def load_tile(self, tile_name: str, content: list[Any]) -> AbcTile:
         pass
 
-    def _load(self, folder: str):
-        path = f'{folder}/{AbcTilePack.rules_file_name}'
-        assert os.path.exists(path), f'Rules file doesn`t exist: {path}'
+    def _load(self, folder: Path):
+        path  = folder / AbcTilePack.rules_file_name
+        assert path.exists(), f'Rules file doesn`t exist: {path}'
 
         with open(path, 'r', encoding='utf-8') as f:
             ruleset = json.load(f)
@@ -30,3 +31,7 @@ class AbcTilePack(ABC, UserDict[str, AbcTile]):
 
     def keys(self) -> set[str]:
         return set(self.data.keys())
+
+    @property
+    def size(self) -> int:
+        return len(self.data)

@@ -8,6 +8,7 @@ class Cell:
     def __init__(self, row: int, column: int, tile_pack: AbcTilePack, board_size: int):
         self.row = row
         self.column = column
+        self.coordinates = (row, column)
         self.tile_pack = tile_pack
         self._tiles = tile_pack.keys()
         self.board_size = board_size
@@ -53,8 +54,14 @@ class Cell:
     def reset(self):
         self._tiles = self.tile_pack.keys()
 
-    def collapse(self) -> str:
-        self._tiles = {choice(list(self._tiles)), }
+    def collapse(self, tile: str | None = None) -> str:
+        if tile is None:
+            selected_tile = choice(list(self._tiles))
+        else:
+            assert tile in self.tiles, f'{tile} not in {self.tile_pack.keys()}'
+            selected_tile = tile
+
+        self._tiles = {selected_tile, }
         return self.collapsed_tile
 
     @property

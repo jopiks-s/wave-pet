@@ -1,0 +1,146 @@
+{
+  "empty": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "·"
+  ],
+  "end_up": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "╵"
+  ],
+  "end_right": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "╶"
+  ],
+  "end_down": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "╷"
+  ],
+  "end_left": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "╴"
+  ],
+  "vertical": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "│"
+  ],
+  "horizontal": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "─"
+  ],
+  "up_right": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "└"
+  ],
+  "right_down": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "┌"
+  ],
+  "down_left": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "┐"
+  ],
+  "left_up": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "┘"
+  ],
+  "tee_up": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["empty", "end_right", "end_down", "end_left", "horizontal", "right_down", "down_left", "tee_down"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "┴"
+  ],
+  "tee_right": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["empty", "end_up", "end_down", "end_left", "vertical", "down_left", "left_up", "tee_left"]
+    },
+    "├"
+  ],
+  "tee_down": [
+    {
+      "UP": ["empty", "end_up", "end_right", "end_left", "horizontal", "up_right", "left_up", "tee_up"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "┬"
+  ],
+  "tee_left": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["empty", "end_up", "end_right", "end_down", "vertical", "up_right", "right_down", "tee_right"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "┤"
+  ],
+  "cross": [
+    {
+      "UP": ["end_down", "vertical", "right_down", "down_left", "tee_right", "tee_down", "tee_left", "cross"],
+      "RIGHT": ["end_left", "horizontal", "down_left", "left_up", "tee_up", "tee_down", "tee_left", "cross"],
+      "DOWN": ["end_up", "vertical", "up_right", "left_up", "tee_up", "tee_right", "tee_left", "cross"],
+      "LEFT": ["end_right", "horizontal", "up_right", "right_down", "tee_up", "tee_right", "tee_down", "cross"]
+    },
+    "┼"
+  ]
+}

@@ -33,7 +33,7 @@ class TileSet(UserDict):
                 name = file_name.split('.')[0]
                 rules = {Tile.Directions[direction]: valid_neighbors for direction, valid_neighbors in rule_set[name].items()}
                 image = Image.open(f'{path}/{file_name}')
-                image = ctk.CTkImage(image, size=image.size)
+                image = ctk.CTkImage(image, size=image._size)
                 super().__setitem__(name, Tile(name, rules, image))
 
     @property

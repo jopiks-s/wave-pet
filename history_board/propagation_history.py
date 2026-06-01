@@ -33,7 +33,7 @@ class PropagationHistory:
         table = [[0 for j in range(size)] for i in range(size)]
         while not _history.empty():
             _dir, cell = _history.get()
-            symbol = _dir.symbol() if _dir is not None else '.'
+            symbol = _dir._symbol() if _dir is not None else '.'
             table[cell.row][cell.column] = symbol
 
         return tabulate(table, headers, 'fancy_grid', showindex='always')
