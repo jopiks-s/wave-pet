@@ -1,0 +1,42 @@
+{
+  "tree": [
+    {
+      "UP": ["tree"],
+      "RIGHT": ["tree", "grass"],
+      "DOWN": ["tree", "grass",  "flower"],
+      "LEFT": ["tree", "grass"]
+    }
+  ],
+  "grass": [
+    {
+      "UP": ["grass",  "tree", "flower"],
+      "RIGHT": ["grass",  "tree", "flower", "beach"],
+      "DOWN": ["grass",  "flower", "beach"],
+      "LEFT": ["grass",  "tree", "flower", "beach"]
+    }
+  ],
+  "flower": [
+    {
+      "UP": ["tree", "grass"],
+      "RIGHT": ["grass"],
+      "DOWN": ["grass"],
+      "LEFT": ["grass"]
+    }
+  ],
+  "beach": [
+    {
+      "UP": ["grass"],
+      "RIGHT": ["grass",  "sea"],
+      "DOWN": ["sea"],
+      "LEFT": ["grass",  "sea"]
+    }
+  ],
+  "sea": [
+    {
+      "UP": ["sea", "beach"],
+      "RIGHT": ["sea", "beach"],
+      "DOWN": ["sea"],
+      "LEFT": ["sea", "beach"]
+    }
+  ]
+}

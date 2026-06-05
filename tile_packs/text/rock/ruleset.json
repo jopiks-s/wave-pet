@@ -1,0 +1,112 @@
+{
+  "outer_left": [
+    {
+      "UP": ["vertical_left", "inner_right"],
+      "RIGHT": ["vertical_right", "outer_right", "rock", "empty"],
+      "DOWN": ["rock", "empty"],
+      "LEFT": ["horizontal", "inner_right"]
+    },
+    "┘",
+    ""
+  ],
+  "outer_right": [
+    {
+      "UP": ["vertical_right", "inner_left"],
+      "LEFT": ["vertical_left", "outer_left", "empty", "rock"],
+      "DOWN": ["rock", "empty"],
+      "RIGHT": ["horizontal", "inner_left"]
+    },
+    "└",
+    ""
+  ],
+  "inner_right": [
+    {
+      "UP": ["air", "candle"],
+      "RIGHT": ["horizontal", "inner_left"],
+      "DOWN": ["vertical_left", "outer_left"],
+      "LEFT": ["air", "candle"]
+    },
+    "┌",
+    ""
+  ],
+  "inner_left": [
+    {
+      "UP": ["air", "candle"],
+      "LEFT": ["horizontal", "inner_right"],
+      "DOWN": ["vertical_right", "outer_right"],
+      "RIGHT": ["air", "candle"]
+    },
+    "┐",
+    ""
+  ],
+  "vertical_left": [
+    {
+      "UP": ["vertical_left", "inner_right"],
+      "RIGHT": ["rock", "empty", "vertical_right", "outer_right"],
+      "DOWN": ["vertical_left", "outer_left"],
+      "LEFT": ["air", "candle"]
+    },
+    "│",
+    ""
+  ],
+  "vertical_right": [
+    {
+      "UP": ["vertical_right", "inner_left"],
+      "LEFT": ["rock", "empty", "vertical_left", "outer_left"],
+      "DOWN": ["vertical_right", "outer_right"],
+      "RIGHT": ["air", "candle"]
+    },
+    "│",
+    ""
+  ],
+  "horizontal": [
+    {
+      "UP": ["air", "candle"],
+      "RIGHT": ["horizontal", "inner_left"],
+      "DOWN": ["rock", "empty"],
+      "LEFT": ["horizontal", "inner_right"]
+    },
+    "━",
+    ""
+  ],
+  "rock": [
+    {
+      "UP": ["rock", "empty", "horizontal", "outer_left", "outer_right"],
+      "RIGHT": ["rock", "empty", "vertical_left", "outer_left"],
+      "DOWN": ["rock", "empty"],
+      "LEFT": ["rock", "empty", "vertical_right", "outer_right"]
+    },
+    "⟐",
+    ""
+  ],
+  "empty": [
+    {
+      "UP": ["rock", "empty", "horizontal", "outer_left", "outer_right"],
+      "RIGHT": ["rock", "empty", "vertical_left", "outer_left"],
+      "DOWN": ["rock", "empty"],
+      "LEFT": ["rock", "empty", "vertical_right", "outer_right"]
+    },
+    " ",
+    ""
+  ],
+  "candle": [
+    {
+      "UP": ["candle", "air"],
+      "RIGHT": ["candle", "air", "vertical_left", "inner_right"],
+      "DOWN": ["candle", "air", "horizontal", "inner_right", "inner_left"],
+      "LEFT": ["candle", "air", "vertical_right", "inner_left"]
+    },
+    "i",
+    ""
+  ],
+  "air": [
+    {
+      "UP": ["candle", "air"],
+      "RIGHT": ["candle", "air", "vertical_left", "inner_right"],
+      "DOWN": ["candle", "air", "horizontal", "inner_right", "inner_left"],
+      "LEFT": ["candle", "air", "vertical_right", "inner_left"]
+    },
+    " ",
+    ""
+  ]
+}

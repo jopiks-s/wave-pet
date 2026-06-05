@@ -6,12 +6,14 @@ from textual.containers import Container
 from textual.events import MouseEvent
 from textual.widgets import Footer, Header
 
-from .map import Map
 from text_wfc.tile_pack import TextTilePack
+from .map import Map
+from .status_line import StatusLine
+from .wfc import Board
 
 SIZE = 15
-PACK = ['road', 'forrest-sea'][1]
-TILES_PATH = Path(__file__).parent.parent / 'tiles' / 'text' / PACK
+PACKS = ['road', 'forrest-sea', 'network']
+TILES_PATH = Path(__file__).parent.parent / 'tile_packs' / 'text' / PACKS[1]
 
 
 class WfcApp(App):
@@ -41,11 +43,15 @@ class WfcApp(App):
 
         self.tiles_path = tiles_path
         self.tile_pack = TextTilePack(tiles_path)
+        self.board = Board(SIZE, self.tile_pack)
 
     def compose(self) -> ComposeResult:
         yield Header(name="Wave Function Collapse")
         with Container(id="map-container"):
-            yield Map(SIZE, self.tile_pack, id="map")
+            status_line = StatusLine(self.board)
+            _map = Map(self.board, status_line, id="map")
+            yield _map
+        yield status_line
         yield Footer()
 
     def lock(self):

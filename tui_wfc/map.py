@@ -6,7 +6,7 @@ from textual.coordinate import Coordinate
 from textual.screen import ModalScreen
 from textual.widgets import DataTable, Button, Input, Label
 
-from text_wfc.tile_pack import TextTilePack
+from .status_line import StatusLine
 from .tile_picker import TilePicker
 from .wfc import Cell, Board
 
@@ -90,10 +90,10 @@ class MapSizeModal(ModalScreen[int | None]):
 
 
 class Map(DataTable[Cell]):
-    def __init__(self, board_size: int, tile_pack: TextTilePack, *args, **kwargs):
+    def __init__(self, board: Board, status_line: StatusLine, *args, **kwargs):
         super().__init__(show_header=False, *args, **kwargs)
-        self.tile_pack = tile_pack
-        self.board = Board(board_size, tile_pack)
+        self.board = board
+        self.status_line = status_line
 
         self.cell_padding = 0
         self.cursor_type = "cell"
@@ -115,10 +115,12 @@ class Map(DataTable[Cell]):
             self.board.reset()
         self.board.solve()
         self._render_rows()
+        self.status_line.update_status()
 
     def reset(self):
         self.board.reset()
         self._render_rows()
+        self.status_line.update_status()
 
     def change_size(self):
         def handle(new_size: int | None) -> None:
@@ -127,6 +129,7 @@ class Map(DataTable[Cell]):
 
             self.board.change_size(new_size)
             self._render_rows()
+            self.status_line.update_status()
 
         self.app.push_screen(MapSizeModal(self.board.size), handle)
 
@@ -161,7 +164,6 @@ class Map(DataTable[Cell]):
             changes = self.board.propagate_collapse(cell)
             changes.add(cell)
             self.update_cells(changes)
-
-            self.notify(f'{event.coordinate} collapsed!')
+            self.status_line.update_status()
 
         self.app.push_screen(TilePicker(cell), handle_pick)

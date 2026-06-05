@@ -13,6 +13,7 @@ class AbcTilePack(ABC, UserDict[str, AbcTile]):
 
     def __init__(self, folder: Path):
         super().__init__()
+        self.name = folder.name
         self._load(folder)
 
     @abstractmethod

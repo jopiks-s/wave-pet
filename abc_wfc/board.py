@@ -92,6 +92,15 @@ class Board(Generic[CellT]):
         return False
 
     @property
+    def solved_count(self) -> int:
+        solved_count = 0
+        for row in self._board:
+            for cell in row:
+                if cell.entropy <= 1:
+                    solved_count += 1
+        return solved_count
+
+    @property
     def solved(self) -> bool:
         for row in self._board:
             for cell in row:

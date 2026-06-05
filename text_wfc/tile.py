@@ -16,7 +16,7 @@ class TextTile(AbcTile):
     def __post_init__(self):
         object.__setattr__(self, "symbol", Text(self.raw_symbol, self.style))
 
-    def __str__(self) -> str:
+    def __str__(self) -> Text:
         return self.symbol
 
     def __rich__(self) -> Text:

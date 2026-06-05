@@ -16,4 +16,4 @@ class Board(BaseBoard):
                 if entropy == 1:
                     symbol = self.tile_pack[cell.collapsed_tile].symbol
                 console.print(symbol, end=' ')
-            print()
+            console.print()
